@@ -160,14 +160,26 @@ BOOL detected_again(unsigned char *cfg)
 	return (GET_BITS(a1, 14, 12) + GET_BITS(a1, 17, 15) + (GET_BIT(a1, 10) | GET_BIT(a1, 11))) == 15;
 }
 
+#define YOU_HAVE_BEEN if
+
 int main(void)
 {
 	i_have_been_watching_you(xilinx_cfg);
 
+	
+	printf("\n-------------------------------------------------------------\n");
+	printf("Press any key to continue . . .\n");
 	getchar();
-	printf("\n-------------------------------------------------------------\n\n\n");
 
 	i_have_been_watching_you(leet_cfg);
+
+	YOU_HAVE_BEEN(detected_again(leet_cfg))
+	{
+		printf("\n[!] tossa\n");
+	}
+
+	printf("\n-------------------------------------------------------------\n");
+	printf("Press any key to continue . . .\n");
 
 	return getchar();
 }
