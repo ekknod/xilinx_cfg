@@ -173,12 +173,11 @@ int main(void)
 
 	i_have_been_watching_you(leet_cfg);
 
-	YOU_HAVE_BEEN(detected_again(leet_cfg))
-	{
-		printf("\n[!] tossa\n");
-	}
-
 	printf("\n-------------------------------------------------------------\n");
+
+	YOU_HAVE_BEEN(detected_again(leet_cfg))
+	printf("TOSSA!\n");
+	
 	printf("Press any key to continue . . .\n");
 
 	return getchar();
