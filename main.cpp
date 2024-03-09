@@ -96,6 +96,8 @@ namespace pci
 	inline WORD device_id(PVOID cfg)   { return *(WORD*)((PBYTE)cfg + 0x00); }
 	inline BYTE revision_id(PVOID cfg) { return *(BYTE*)((PBYTE)cfg + 0x08); }
 	inline DWORD* bar(PVOID cfg)       { return (DWORD*)((PBYTE)cfg + 0x10); }
+	inline BYTE header_type(PVOID cfg) { return *(BYTE*)((PBYTE)cfg + 0x0E); }
+
 
 	//
 	// printf("%06X\n", classcode);
@@ -341,6 +343,7 @@ void filter_pci_cfg(unsigned char *cfg)
 	printf("CFG_VEND_ID | CFG_DEV_ID 			%04X %04X\n", vendor_id(cfg), device_id(cfg));
 	printf("CFG_SUBSYS_VEND_ID | CFG_SUBSYS_ID 		%04X %04X\n", subsys_vendor_id(cfg), subsys_id(cfg));
 	printf("CFG_REV_ID 					%ld\n", revision_id(cfg));
+	printf("HEADER_TYPE 					%ld\n", header_type(cfg));
 	printf("BAR0 						%lx\n", bar(cfg)[0]);
 	printf("CLASS_CODE 					%06X\n", class_code(cfg));
 	printf("CAPABILITIES_PTR | PM_BASE_PTR 			0x%x\n", capabilities_ptr(cfg));
@@ -586,6 +589,7 @@ void comp_filter_pci_cfg(unsigned char *cfg, unsigned char *cfg1)
 	printf("CFG_VEND_ID | CFG_DEV_ID 			%04X %04X|%04X %04X\n", vendor_id(cfg), device_id(cfg), vendor_id(cfg1), device_id(cfg1));
 	printf("CFG_SUBSYS_VEND_ID | CFG_SUBSYS_ID 		%04X %04X|%04X %04X\n", subsys_vendor_id(cfg), subsys_id(cfg), subsys_vendor_id(cfg1), subsys_id(cfg1));
 	printf("CFG_REV_ID 					%ld|%ld\n", revision_id(cfg), revision_id(cfg1));
+	printf("HEADER_TYPE 					%ld|%ld\n", header_type(cfg), header_type(cfg));
 	printf("BAR0 						%lx|%lx\n", bar(cfg)[0], bar(cfg1)[0]);
 	printf("CLASS_CODE 					%06X|%06X\n", class_code(cfg), class_code(cfg1));
 	printf("CAPABILITIES_PTR | PM_BASE_PTR 			0x%x|0x%x\n", capabilities_ptr(cfg), capabilities_ptr(cfg1));
