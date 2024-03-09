@@ -170,9 +170,12 @@ namespace pci
 		namespace cap
 		{
 		inline BYTE pcie_cap_on(PVOID pcie) { return ((DWORD*)pcie)[0] != 0; }
-		inline BYTE pcie_cap_nextptr(PVOID pcie) { return ((unsigned char*)(pcie))[1]; }
 		inline BYTE pcie_cap_capability_id(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 7, 0); }
-		inline BYTE pcie_cap_capability_version(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 18, 16); }
+		inline BYTE pcie_cap_nextptr(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 15, 8); }
+		inline BYTE pcie_cap_capability_version(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 19, 16); }
+		inline BYTE pcie_cap_device_port_type(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 23, 20); }
+		inline BYTE pcie_cap_slot_implemented(PVOID pcie) { return GET_BIT(((DWORD*)pcie)[0], 24); }
+		inline BYTE pcie_cap_interrupt_message_number(PVOID pcie) { return GET_BITS(((DWORD*)pcie)[0], 29,25); }
 		}
 	}
 
@@ -419,6 +422,8 @@ void filter_pci_cfg(unsigned char *cfg)
 	printf("PCIE_CAP_NEXTPTR               			0x%lx\n", pcie::cap::pcie_cap_nextptr(pcie));
 	printf("PCIE_CAP_CAPABILITY_ID               		0x%lx\n", pcie::cap::pcie_cap_capability_id(pcie));
 	printf("PCIE_CAP_CAPABILITY_VERSION 			0x%lx\n", pcie::cap::pcie_cap_capability_version(pcie));
+	printf("PCIE_CAP_DEVICE_PORT_TYPE 			0x%lx\n", pcie::cap::pcie_cap_device_port_type(pcie));
+	printf("PCIE_CAP_SLOT_IMPLEMENTED  			0x%lx\n", pcie::cap::pcie_cap_slot_implemented(pcie));
 	printf("---------------------------------------------------------------------\n");
 
 	PVOID dev = get_dev(cfg);
@@ -665,6 +670,8 @@ void comp_filter_pci_cfg(unsigned char *cfg, unsigned char *cfg1)
 	printf("PCIE_CAP_NEXTPTR               			0x%lx|0x%lx\n", pcie::cap::pcie_cap_nextptr(pcie), pcie::cap::pcie_cap_nextptr(pcie1));
 	printf("PCIE_CAP_CAPABILITY_ID               		0x%lx|0x%lx\n", pcie::cap::pcie_cap_capability_id(pcie), pcie::cap::pcie_cap_capability_id(pcie1));
 	printf("PCIE_CAP_CAPABILITY_VERSION 			0x%lx|0x%lx\n", pcie::cap::pcie_cap_capability_version(pcie), pcie::cap::pcie_cap_capability_version(pcie1));
+	printf("PCIE_CAP_DEVICE_PORT_TYPE 			0x%lx|0x%lx\n", pcie::cap::pcie_cap_device_port_type(pcie),pcie::cap::pcie_cap_device_port_type(pcie1));
+	printf("PCIE_CAP_SLOT_IMPLEMENTED  			0x%lx|0x%lx\n", pcie::cap::pcie_cap_slot_implemented(pcie),pcie::cap::pcie_cap_slot_implemented(pcie1));
 	printf("---------------------------------------------------------------------\n");
 
 	PVOID dev = get_dev(cfg);
