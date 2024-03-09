@@ -137,8 +137,11 @@ namespace pci
 
 		namespace csr
 		{
-		inline BYTE pm_csr_power_state(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 1, 0); }
 		inline BYTE pm_csr_nosoftrst(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 3, 2)!=0; }
+		inline BYTE pm_csr_bpccen(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 23); }
+		inline BYTE pm_csr_b2b3s(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 22); }
+
+		inline BYTE pm_csr_power_state(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 1, 0); }
 		inline BYTE pm_csr_dynamic_data(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 4); }
 		inline BYTE pm_csr_reserved(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 7, 5); }
 		inline BYTE pm_csr_pme_enabled(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 8); }
@@ -369,8 +372,10 @@ void filter_pci_cfg(unsigned char *cfg)
 		"\n[PMCSR]\n"
 		"---------------------------------------------------------------------\n"
 	);
-	printf("PMCSR PWR STATE 				%ld\n", pm::csr::pm_csr_power_state(pm));
 	printf("PM_CSR_NOSOFTRST 				%ld\n", pm::csr::pm_csr_nosoftrst(pm));
+	printf("PM_CSR_BPCCEN    				%ld\n", pm::csr::pm_csr_bpccen(pm));
+	printf("PM_CSR_B2B3S     				%ld\n", pm::csr::pm_csr_b2b3s(pm));
+	printf("PMCSR PWR STATE 				%ld\n", pm::csr::pm_csr_power_state(pm));
 	printf("PMCSR PMESTATUS 				%ld\n", pm::csr::pm_csr_pme_status(pm));
 	printf("PMCSR DATA SCALE 				%ld\n", pm::csr::pm_csr_data_scale(pm));
 	printf("PMCSR DATA SELECT 				%ld\n", pm::csr::pm_csr_pme_status(pm));
@@ -611,8 +616,10 @@ void comp_filter_pci_cfg(unsigned char *cfg, unsigned char *cfg1)
 		"\n[PMCSR]\n"
 		"---------------------------------------------------------------------\n"
 	);
-	printf("PMCSR PWR STATE 				%ld|%ld\n", pm::csr::pm_csr_power_state(pm),pm::csr::pm_csr_power_state(pm1));
 	printf("PM_CSR_NOSOFTRST 				%ld|%ld\n", pm::csr::pm_csr_nosoftrst(pm), pm::csr::pm_csr_nosoftrst(pm1));
+	printf("PM_CSR_BPCCEN    				%ld|%ld\n", pm::csr::pm_csr_bpccen(pm), pm::csr::pm_csr_bpccen(pm1));
+	printf("PM_CSR_B2B3S     				%ld|%ld\n", pm::csr::pm_csr_b2b3s(pm), pm::csr::pm_csr_b2b3s(pm1));
+	printf("PMCSR PWR STATE 				%ld|%ld\n", pm::csr::pm_csr_power_state(pm),pm::csr::pm_csr_power_state(pm1));
 	printf("PMCSR PMESTATUS 				%ld|%ld\n", pm::csr::pm_csr_pme_status(pm), pm::csr::pm_csr_pme_status(pm1));
 	printf("PMCSR DATA SCALE 				%ld|%ld\n", pm::csr::pm_csr_data_scale(pm), pm::csr::pm_csr_data_scale(pm1));
 	printf("PMCSR DATA SELECT 				%ld|%ld\n", pm::csr::pm_csr_pme_status(pm), pm::csr::pm_csr_pme_status(pm1));
