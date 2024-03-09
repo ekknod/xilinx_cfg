@@ -536,9 +536,9 @@ void filter_pci_cfg(unsigned char *cfg)
 		"---------------------------------------------------------------------\n"
 	);
 	printf("LINK_CTRL2_TARGET_LINK_SPEED 			%d\n",  link::ctrl2::link_ctrl2_target_link_speed(link));
-	printf("Enter Compliance 				%ld\n", link::ctrl2::entercompliance(link));
 	printf("LINK_CTRL2_HW_AUTONOMOUS_SPEED_DISABLE 		%ld\n", link::ctrl2::link_ctrl2_hw_autonomous_speed_disable(link));
 	printf("LINK_CTRL2_DEEMPHASIS 				%ld\n", link::ctrl2::link_ctrl2_deemphasis(link));
+	printf("Enter Compliance 				%ld\n", link::ctrl2::entercompliance(link));
 	printf("Transmit Margin 				%ld\n", link::ctrl2::transmitmargin(link));
 	printf("Enter Modified Compliance 			%ld\n", link::ctrl2::entermodifiedcompliance(link));
 	printf("Compliance SOS 					%d\n",  link::ctrl2::compliancesos(link));
@@ -696,13 +696,13 @@ void comp_filter_pci_cfg(unsigned char *cfg, unsigned char *cfg1)
 		"\n[Device Control]\n"
 		"---------------------------------------------------------------------\n"
 	);
+	printf("DEV_CONTROL_EXT_TAG_DEFAULT 			%ld|%ld\n", dev::ctrl::dev_ctrl_ext_tag_default(dev), dev::ctrl::dev_ctrl_ext_tag_default(dev1));
 	printf("Correctable Error Reporting Enable 		%ld|%ld\n", dev::ctrl::dev_ctrl_corr_err_reporting(dev), dev::ctrl::dev_ctrl_corr_err_reporting(dev1));
 	printf("Non-Fatal Error Reporting Enable 		%ld|%ld\n", dev::ctrl::dev_ctrl_non_fatal_reporting(dev), dev::ctrl::dev_ctrl_non_fatal_reporting(dev1));
 	printf("Fatal Error Reporting Enable 			%ld|%ld\n", dev::ctrl::dev_ctrl_fatal_err_reporting(dev), dev::ctrl::dev_ctrl_fatal_err_reporting(dev1));
 	printf("Unsupported Request Reporting Enable 		%ld|%ld\n", dev::ctrl::dev_ctrl_ur_reporting(dev), dev::ctrl::dev_ctrl_ur_reporting(dev1));
 	printf("Enable Relaxed Ordering 			%ld|%ld\n", dev::ctrl::dev_ctrl_relaxed_ordering(dev), dev::ctrl::dev_ctrl_relaxed_ordering(dev1));
 	printf("Max_Payload_Size 				%ld|%ld\n", dev::ctrl::dev_ctrl_max_payload_size(dev), dev::ctrl::dev_ctrl_max_payload_size(dev1));
-	printf("DEV_CONTROL_EXT_TAG_DEFAULT 			%ld|%ld\n", dev::ctrl::dev_ctrl_ext_tag_default(dev), dev::ctrl::dev_ctrl_ext_tag_default(dev1));
 	printf("Phantom Functions Enable 			%ld|%ld\n", dev::ctrl::dev_ctrl_phantom_func_enable(dev), dev::ctrl::dev_ctrl_phantom_func_enable(dev1));
 	printf("Auxiliary Power PM Enable 			%ld|%ld\n", dev::ctrl::dev_ctrl_aux_power_enable(dev), dev::ctrl::dev_ctrl_aux_power_enable(dev1));
 	printf("Enable No Snoop 				%ld|%ld\n", dev::ctrl::dev_ctrl_enable_no_snoop(dev), dev::ctrl::dev_ctrl_enable_no_snoop(dev1));
@@ -784,9 +784,9 @@ void comp_filter_pci_cfg(unsigned char *cfg, unsigned char *cfg1)
 		"---------------------------------------------------------------------\n"
 	);
 	printf("LINK_CTRL2_TARGET_LINK_SPEED 			%ld|%ld\n", link::ctrl2::link_ctrl2_target_link_speed(link), link::ctrl2::link_ctrl2_target_link_speed(link1));
-	printf("Enter Compliance 				%ld|%ld\n", link::ctrl2::entercompliance(link), link::ctrl2::entercompliance(link1));
 	printf("LINK_CTRL2_HW_AUTONOMOUS_SPEED_DISABLE 		%ld|%ld\n", link::ctrl2::link_ctrl2_hw_autonomous_speed_disable(link), link::ctrl2::link_ctrl2_hw_autonomous_speed_disable(link1));
 	printf("LINK_CTRL2_DEEMPHASIS 				%ld|%ld\n", link::ctrl2::link_ctrl2_deemphasis(link), link::ctrl2::link_ctrl2_deemphasis(link1));
+	printf("Enter Compliance 				%ld|%ld\n", link::ctrl2::entercompliance(link), link::ctrl2::entercompliance(link1));
 	printf("Transmit Margin 				%ld|%ld\n", link::ctrl2::transmitmargin(link), link::ctrl2::transmitmargin(link1));
 	printf("Enter Modified Compliance 			%ld|%ld\n", link::ctrl2::entermodifiedcompliance(link), link::ctrl2::entermodifiedcompliance(link1));
 	printf("Compliance SOS 					%ld|%ld\n", link::ctrl2::compliancesos(link), link::ctrl2::compliancesos(link1));
