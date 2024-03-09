@@ -138,7 +138,7 @@ namespace pci
 		namespace csr
 		{
 		inline BYTE pm_csr_power_state(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 1, 0); }
-		inline BYTE pm_csr_nosoftrst(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 3, 2); }
+		inline BYTE pm_csr_nosoftrst(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 3, 2)!=0; }
 		inline BYTE pm_csr_dynamic_data(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 4); }
 		inline BYTE pm_csr_reserved(PVOID pm) { return GET_BITS(((DWORD*)pm)[1], 7, 5); }
 		inline BYTE pm_csr_pme_enabled(PVOID pm) { return GET_BIT(((DWORD*)pm)[1], 8); }
@@ -369,14 +369,14 @@ void filter_pci_cfg(unsigned char *cfg)
 		"\n[PMCSR]\n"
 		"-----------------------------------------------------------\n"
 	);
+	printf("PMCSR PWR STATE 				%ld\n", pm::csr::pm_csr_power_state(pm));
+	printf("PM_CSR_NOSOFTRST 				%ld\n", pm::csr::pm_csr_nosoftrst(pm));
 	printf("PMCSR PMESTATUS 				%ld\n", pm::csr::pm_csr_pme_status(pm));
 	printf("PMCSR DATA SCALE 				%ld\n", pm::csr::pm_csr_data_scale(pm));
 	printf("PMCSR DATA SELECT 				%ld\n", pm::csr::pm_csr_pme_status(pm));
 	printf("PMCSR PME ENABLE 				%ld\n", pm::csr::pm_csr_pme_enabled(pm));
 	printf("PMCSR reserved 					%ld\n", pm::csr::pm_csr_reserved(pm));
 	printf("PMCSR dynamic data 				%ld\n", pm::csr::pm_csr_dynamic_data(pm));
-	printf("PMCSR PM_CSR_NOSOFTRST 				%ld\n", pm::csr::pm_csr_nosoftrst(pm));
-	printf("PMCSR PWR STATE 				%ld\n", pm::csr::pm_csr_power_state(pm));
 	printf("-----------------------------------------------------------\n");
 
 	PVOID msi = get_msi(cfg);
