@@ -252,9 +252,45 @@ namespace pci
 		inline BYTE link_control_rcb(PVOID link)                { return GET_BIT(((DWORD*)link)[1], 3); }
 		}
 
+
 		namespace status
 		{
-		inline BYTE link_status_slot_clock_config(PVOID link)   { return GET_BIT(((DWORD*)link)[1], 28); }
+		inline PVOID __status(PVOID link) { return (PVOID)((PBYTE)link + sizeof(DWORD) + sizeof(WORD)); }
+
+		typedef union _PCI_EXPRESS_LINK_STATUS_REGISTER {
+
+			struct {
+
+				USHORT LinkSpeed : 4;
+				USHORT LinkWidth : 6;
+				USHORT Undefined : 1;
+				USHORT LinkTraining : 1;
+				USHORT SlotClockConfig : 1;
+				USHORT DataLinkLayerActive : 1;
+				USHORT Rsvd : 2;
+			} DUMMYSTRUCTNAME;
+
+			USHORT AsUSHORT;
+
+		} PCI_EXPRESS_LINK_STATUS_REGISTER, * PPCI_EXPRESS_LINK_STATUS_REGISTER;
+
+		inline WORD link_status_slot_clock_config(PVOID link)
+		{
+			PVOID link_status = __status(link);
+			return ((PPCI_EXPRESS_LINK_STATUS_REGISTER)link_status)->SlotClockConfig;
+		}
+
+		inline WORD link_speed(PVOID link)
+		{
+			PVOID link_status = __status(link);
+			return ((PPCI_EXPRESS_LINK_STATUS_REGISTER)link_status)->LinkSpeed;
+		}
+
+		inline WORD link_width(PVOID link)
+		{
+			PVOID link_status = __status(link);
+			return ((PPCI_EXPRESS_LINK_STATUS_REGISTER)link_status)->LinkWidth;
+		}
 		}
 
 		namespace cap2
@@ -567,6 +603,8 @@ void filter_pci_cfg(unsigned char *cfg)
 		"---------------------------------------------------------------------\n"
 	);
 	printf("LINK_STATUS_SLOT_CLOCK_CONFIG	 		%ld\n", link::status::link_status_slot_clock_config(link));
+	printf("LINK_SPEED                   	 		%ld\n", link::status::link_speed(link));
+	printf("LINK_WIDTH                   	 		%ld\n", link::status::link_width(link));
 	printf("---------------------------------------------------------------------\n");
 
 
