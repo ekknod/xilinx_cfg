@@ -266,4 +266,27 @@ fn main() {
     println!("{:#?}", conf.get_msi());
     println!("{:#?}", conf.get_pci());
     println!("{:#?}", conf.get_dsn());
+
+    //
+    // print extended capabilities
+    //
+    for i in 0..config::Pci::MAX_EXTENDED_CAPABILITIES {
+        let cap = conf.get_empty_extended_cap(i);
+        if cap.cap_on == 0 {
+            continue;
+        }
+
+        let capability_name = format!("CAP_{:04X}", i);
+
+        print!("{}", format!(
+            "\n[PCI Express Extended Capability - {}]\n\
+            ---------------------------------------------------------------------\n",
+            capability_name
+        ));
+
+        println!("{}", format!("{}_ON       0x{:04X}", capability_name, 1));
+        println!("{}", format!("{}_BASE_PTR 0x{:04X}", capability_name, conf.get_ext_capability_by_id(i)));
+        println!("{}", format!("{}_NEXT_PTR 0x{:04X}", capability_name, cap.cap_next_ptr));
+        println!("---------------------------------------------------------------------");
+    }
 }
