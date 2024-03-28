@@ -260,7 +260,7 @@ const WIRELESS_ADAPTER_CFG: [u8; 4096] = [
 ];
 
 fn main() {
-    let conf = config::Pci::new(&WIRELESS_ADAPTER_CFG, 0x1000);
+    let conf = config::Pci::new(&WIRELESS_ADAPTER_CFG);
     println!("{:#?}", conf);
     println!("{:#?}", conf.get_pm());
     println!("{:#?}", conf.get_msi());
