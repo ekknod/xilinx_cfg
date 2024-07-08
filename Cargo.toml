@@ -6,4 +6,4 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-pci-cfg-rs = { version = "0.1.5", git = "https://github.com/ekknod/pci-cfg-rs.git" }
+pci-cfg-rs = { version = "0.1.6", git = "https://github.com/ekknod/pci-cfg-rs.git" }

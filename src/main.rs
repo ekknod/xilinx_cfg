@@ -264,13 +264,14 @@ fn main() {
     println!("{:#?}", conf);
     println!("{:#?}", conf.get_pm());
     println!("{:#?}", conf.get_msi());
+    println!("{:#?}", conf.get_msix());
     println!("{:#?}", conf.get_pci());
 
     //
     // print extended capabilities
     //
     for i in 0..config::Pci::MAX_EXTENDED_CAPABILITIES {
-        if i == 0x03 {
+        if i == 0x03 && conf.get_dsn().cap_on {
             println!("{:#?}", conf.get_dsn());
             continue;
         }
